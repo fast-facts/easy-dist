@@ -58,6 +58,7 @@ Module Options:
   --no-modules               Run without copying node_modules.
   -M, --module-path string   Change node_modules path.
   -D, --dev                  Copy modules in devDependencies also.
+  -B, --bin                  Copy .bin also.
 ```
 
 ## Examples
@@ -112,6 +113,7 @@ interface EasyDistOptions {
   modulePath?: string
   noModules?: boolean
   dev?: false
+  bin?: false
 }
 
 export interface EasyDistResult extends Promise<void> {

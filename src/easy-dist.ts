@@ -13,6 +13,7 @@ export interface EasyDistOptions {
   noClean?: boolean
   noModules?: boolean
   dev?: false
+  bin?: false
 }
 
 export interface EasyDistResult extends Promise<void> {
@@ -72,6 +73,7 @@ export function easyDist(options: EasyDistOptions): EasyDistResult {
           basePath: options.basePath,
           cwd: modulePath,
           devDeps: options.dev,
+          bin: options.bin,
           onCopy,
         })
       )

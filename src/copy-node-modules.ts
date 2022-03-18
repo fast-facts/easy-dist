@@ -5,7 +5,7 @@ import { listPackagePaths, ListPackagesOptions } from './utils/npm'
 
 export interface CopyNodeModulesOptions
   extends CopyOptions,
-    ListPackagesOptions {
+  ListPackagesOptions {
   basePath?: string
 }
 
@@ -20,6 +20,22 @@ export function copyNodeModules(
     ? resolve(process.cwd(), options.basePath)
     : process.cwd()
 
+  const basePromise = Promise.resolve().then(() => {
+    return copy(
+      resolve(
+        basePath,
+        'node_modules',
+        '.bin'
+      ),
+      resolve(
+        basePath,
+        dest,
+        'node_modules',
+        '.bin'
+      )
+    );
+  })
+
   return listPackagePaths(options).then((pkgAbsPaths) => {
     return pkgAbsPaths.reduce(
       (carry, pkgAbsPath) =>
@@ -33,7 +49,7 @@ export function copyNodeModules(
             )
           )
         }),
-      Promise.resolve()
+      basePromise
     )
   })
 }
