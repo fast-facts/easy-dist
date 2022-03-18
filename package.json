@@ -1,6 +1,6 @@
 {
-  "name": "distize",
-  "version": "2.2.1",
+  "name": "easy-dist",
+  "version": "1.0.0",
   "description": "Copy source files and node_modules without devDependencies to destination directory.",
   "keywords": [
     "build",
@@ -11,21 +11,18 @@
     "cdk",
     "typescript"
   ],
-  "author": "Changwan Jun <wan2land@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/wan2land/distize.git"
+    "url": "git://github.com/ItzRabbs/easy-dist.git"
   },
   "bin": {
-    "distize": "lib/bin/cli.js"
+    "easy-dist": "lib/bin/cli.js"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "prepack": "npm run test && npm run build",
-    "build": "rimraf ./lib && tsc --project tsconfig.build.json && swc src --no-swcrc --config-file .swcrc.build.json --out-dir lib",
-    "format": "prettier .  --write",
+    "build": "rimraf ./lib && tsc --project tsconfig.build.json && swc src --no-swcrc --config-file .swcrc.build.json --out-dir lib && cp package.json lib",
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --fix src",
     "test:unit": "jest src --runInBand"
@@ -34,11 +31,9 @@
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.0",
     "glob": "^7.1.6",
-    "ora": "^6.0.0"
+    "ora": "^5.4.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "16.2.3",
-    "@commitlint/config-conventional": "16.2.1",
     "@swc/cli": "^0.1.55",
     "@swc/core": "1.2.158",
     "@swc/jest": "^0.2.20",
@@ -52,7 +47,6 @@
     "eslint": "8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-stable": "0.10.0",
-    "husky": "7.0.4",
     "jest": "^27.5.1",
     "prettier": "2.6.0",
     "rimraf": "3.0.2",
