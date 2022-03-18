@@ -27,7 +27,7 @@ export function listPackagePaths(
       }
       const packages = stdout
         .toString()
-        .split('\n')
+        .split(/\r?\n/)
         .filter((line) => {
           const matches = line.match(RE_NODE_MODULES)
           return matches && matches.length === 1
