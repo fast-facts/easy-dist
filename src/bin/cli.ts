@@ -80,6 +80,13 @@ const cmdOptions = [
     type: Boolean,
     description: 'Copy modules in devDependencies also.',
   },
+  {
+    group: 'modules',
+    name: 'bin',
+    alias: 'B',
+    type: Boolean,
+    description: 'Copy .bin also.',
+  },
 ]
 
 const args = commandLineArgs(cmdOptions)._all
@@ -130,6 +137,7 @@ const app = easyDist({
   modulePath: args['module-path'],
   noModules: args['no-modules'],
   dev: args.dev,
+  bin: args.bin,
 })
 
 let spinner = null as Ora | null

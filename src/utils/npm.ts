@@ -5,6 +5,7 @@ const RE_NODE_MODULES = /[/\\]node_modules[/\\]/g
 export interface ListPackagesOptions {
   cwd?: string
   devDeps?: boolean
+  bin?: boolean
   noDeps?: boolean
 }
 

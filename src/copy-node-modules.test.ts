@@ -30,4 +30,13 @@ describe('testsuite of copy-node-modules', () => {
       expect(expectNodeModules).toContain(`dist/node_modules/${dep}`)
     }
   }, 10000)
+
+  it('test copyNodeModules, bin=true', async () => {
+    await remove('dist')
+    await copyNodeModules('dist', { bin: true })
+
+    const expectNodeModules = await glob('dist/node_modules/*', { dot: true })
+
+    expect(expectNodeModules).toContain(`dist/node_modules/.bin`)
+  }, 10000)
 })
