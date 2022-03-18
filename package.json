@@ -17,10 +17,10 @@
     "url": "git://github.com/ItzRabbs/easy-dist.git"
   },
   "bin": {
-    "easy-dist": "lib/bin/cli.js"
+    "easy-dist": "bin/cli.js"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "rimraf ./lib && tsc --project tsconfig.build.json && swc src --no-swcrc --config-file .swcrc.build.json --out-dir lib",
     "postbuild": "cp package.json lib && cp README.md lib",
