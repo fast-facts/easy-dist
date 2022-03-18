@@ -1,0 +1,26 @@
+name: Build/Deploy on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run:
+    name: Build/Deploy on Push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - run: npm install
+          
+      - run: npm run build --if-present
+      - run: npm test
+        timeout-minutes: 1
+      
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
+          package: ./lib/package.json

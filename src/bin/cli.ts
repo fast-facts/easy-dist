@@ -4,7 +4,7 @@ import commandLineArgs from 'command-line-args'
 import commandLineUsage from 'command-line-usage'
 import ora, { Ora } from 'ora'
 
-import { distize } from '../distize'
+import { easyDist } from '../easy-dist'
 
 const cmdOptions = [
   {
@@ -95,13 +95,13 @@ if (args.help) {
     commandLineUsage([
       { content: '{yellow Usage:}', raw: true },
       {
-        content: ['$ distize <path ...> [options]'],
+        content: ['$ easy-dist <path ...> [options]'],
       },
       { content: '{yellow Synopsis:}', raw: true },
       {
         content: [
-          '$ distize [{bold --timeout} {underline ms}] {bold --src} {underline file} ...',
-          '$ distize {bold --help}',
+          '$ easy-dist [{bold --timeout} {underline ms}] {bold --src} {underline file} ...',
+          '$ easy-dist {bold --help}',
         ],
       },
       { content: '{yellow Options:}', raw: true },
@@ -122,7 +122,7 @@ if (args.help) {
 
 const cwd = process.cwd()
 
-const app = distize({
+const app = easyDist({
   src: args['no-files'] ? [] : args.src.length > 0 ? args.src : '.',
   basePath: cwd,
   out: args.out,

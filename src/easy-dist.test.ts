@@ -1,10 +1,10 @@
 import { resolve } from 'path'
 
-import { distize } from './distize'
+import { easyDist } from './easy-dist'
 import { remove } from './utils/fs'
 import { glob } from './utils/path'
 
-describe('testsuite of distize', () => {
+describe('testsuite of easy-dist', () => {
   const BASE_PATH = resolve(__dirname, '..')
 
   let beforeCwd = ''
@@ -19,9 +19,9 @@ describe('testsuite of distize', () => {
     }
   })
 
-  it('test distize', async () => {
+  it('test easy-dist', async () => {
     await remove('dist')
-    const result = distize({ src: 'stubs/infra' })
+    const result = easyDist({ src: 'stubs/infra' })
 
     const events = [] as any[]
 
@@ -50,9 +50,9 @@ describe('testsuite of distize', () => {
     ])
   }, 60000)
 
-  it('test distize without modules', async () => {
+  it('test easy-dist without modules', async () => {
     await remove('dist')
-    const result = distize({ src: 'stubs/infra', noModules: true })
+    const result = easyDist({ src: 'stubs/infra', noModules: true })
 
     const events = [] as any[]
 

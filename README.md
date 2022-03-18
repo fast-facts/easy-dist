@@ -1,21 +1,11 @@
-# Distize
-
-<p>
-  <a href="https://github.com/wan2land/distize/actions?query=workflow%3A%22CI%22"><img alt="Build" src="https://img.shields.io/github/workflow/status/wan2land/distize/CI?logo=github&style=flat-square" /></a>
-  <a href="https://npmcharts.com/compare/distize?minimal=true"><img alt="Downloads" src="https://img.shields.io/npm/dt/distize.svg?style=flat-square" /></a>
-  <a href="https://www.npmjs.com/package/distize"><img alt="Version" src="https://img.shields.io/npm/v/distize.svg?style=flat-square" /></a>
-  <a href="https://www.npmjs.com/package/distize"><img alt="License" src="https://img.shields.io/npm/l/distize.svg?style=flat-square" /></a>
-  <br />
-  <a href="https://david-dm.org/wan2land/distize"><img alt="dependencies Status" src="https://img.shields.io/david/wan2land/distize.svg?style=flat-square" /></a>
-  <a href="https://david-dm.org/wan2land/distize?type=dev"><img alt="devDependencies Status" src="https://img.shields.io/david/dev/wan2land/distize.svg?style=flat-square" /></a>
-</p>
+# Easy-Dist
 
 Copy source files and `node_modules` without `devDependencies` to destination directory.
 
 ## Installation
 
 ```bash
-npm install distize --save
+npm install easy-dist --save
 ```
 
 ## Usage
@@ -24,21 +14,21 @@ npm install distize --save
 
 ```bash
 # copy current path(.) to dist directory
-npx distize
+npx easy-dist
 
 # copy specific path to custom dist directory
-npx distize libs/* graphql/* --out mydist
+npx easy-dist libs/* graphql/* --out mydist
 
 # copy node_modules only
-npx distize --no-files
+npx easy-dist --no-files
 ```
 
 ### Javascript
 
 ```js
-import { distize } from 'distize'
+import { easyDist } from 'easy-dist'
 
-await distize({ src: '.' })
+await easyDist({ src: '.' })
 ```
 
 ## Documents
@@ -46,12 +36,12 @@ await distize({ src: '.' })
 ```
 Usage:
 
-  $ distize <path ...> [options]
+  $ easy-dist <path ...> [options]
 
 Synopsis:
 
-  $ distize [--timeout ms] --src file ...
-  $ distize --help
+  $ easy-dist [--timeout ms] --src file ...
+  $ easy-dist --help
 
 Options:
 
@@ -75,7 +65,7 @@ Module Options:
 ### with AWS CDK
 
 When you deploy your Lambda project using the AWS CDK, you also need to deploy `node_modules`.
-Lambda has a capacity limit. You can use **distize** to copy `node_modules` except` devDependencies`.
+Lambda has a capacity limit. You can use **easy-dist** to copy `node_modules` except` devDependencies`.
 
 file: `package.json`
 
@@ -85,7 +75,7 @@ file: `package.json`
     "build": "npm run build:infra && npm run build:server",
     "build:server": "babel ./src --out-dir ./src-dist --extensions \".ts\"",
     "build:infra": "babel ./infra --out-dir ./infra-dist --extensions \".ts\"",
-    "deploy": "npm run build && distize ./src-dist/* && cdk deploy"
+    "deploy": "npm run build && easy-dist ./src-dist/* && cdk deploy"
   },
   "dependencies": {
     "core-js": "^3.6.0"
@@ -105,7 +95,7 @@ file: `package.json`
     "@types/graphql": "14.5.0",
     "@types/node": "^12.12.21",
     "aws-cdk": "^1.19.0",
-    "distize": "^1.1.0",
+    "easy-dist": "^1.1.0",
     "source-map-support": "^0.5.16",
     "typescript": "^3.7.3"
   }
@@ -115,7 +105,7 @@ file: `package.json`
 ## API
 
 ```ts
-interface DistizeOptions {
+interface EasyDistOptions {
   src: string[] | string
   basePath?: string
   out?: string
@@ -124,7 +114,7 @@ interface DistizeOptions {
   dev?: false
 }
 
-export interface DistizeResult extends Promise<void> {
+export interface EasyDistResult extends Promise<void> {
   on(
     event: 'progress',
     listener: (
@@ -135,5 +125,5 @@ export interface DistizeResult extends Promise<void> {
   on(event: 'done', listener: () => void): this
 }
 
-function distize(options: DistizeOptions): DistizeResult
+function easyDist(options: EasyDistOptions): EasyDistResult
 ```

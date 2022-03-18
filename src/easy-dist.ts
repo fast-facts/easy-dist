@@ -5,7 +5,7 @@ import { copyNodeModules } from './copy-node-modules'
 import { copySourceFiles } from './copy-source-files'
 import { remove } from './utils/fs'
 
-export interface DistizeOptions {
+export interface EasyDistOptions {
   src: string[] | string
   basePath?: string
   out?: string
@@ -15,7 +15,7 @@ export interface DistizeOptions {
   dev?: false
 }
 
-export interface DistizeResult extends Promise<void> {
+export interface EasyDistResult extends Promise<void> {
   on(
     event: 'progress',
     listener: (
@@ -26,7 +26,7 @@ export interface DistizeResult extends Promise<void> {
   on(event: 'done', listener: () => void): this
 }
 
-export function distize(options: DistizeOptions): DistizeResult {
+export function easyDist(options: EasyDistOptions): EasyDistResult {
   const basePath = options.basePath ?? process.cwd()
   const dest = resolve(basePath, options.out ?? 'dist')
 
@@ -86,5 +86,5 @@ export function distize(options: DistizeOptions): DistizeResult {
       return promise
     },
   })
-  return promise as DistizeResult
+  return promise as EasyDistResult
 }
