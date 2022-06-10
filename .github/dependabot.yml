@@ -3,8 +3,7 @@ updates:
 - package-ecosystem: npm
   directory: "/"
   schedule:
-    interval: "weekly"
-    day: "monday"
+    interval: daily
     time: "03:00"
     timezone: "America/New_York"
   open-pull-requests-limit: 10
@@ -12,3 +11,7 @@ updates:
   - dependencies
   ignore:
   - dependency-name: "ora"
+  commit-message:
+    prefix: fix
+    prefix-development: chore
+    include: scope
