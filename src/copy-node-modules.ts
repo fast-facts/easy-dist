@@ -1,7 +1,7 @@
-import { resolve } from 'path'
+import { resolve } from 'path';
 
-import { copy, CopyOptions } from './utils/fs'
-import { listPackagePaths, ListPackagesOptions } from './utils/npm'
+import { copy, CopyOptions } from './utils/fs';
+import { listPackagePaths, ListPackagesOptions } from './utils/npm';
 
 export interface CopyNodeModulesOptions
   extends CopyOptions,
@@ -14,11 +14,11 @@ export function copyNodeModules(
   options: CopyNodeModulesOptions = {}
 ): Promise<void> {
   if (!dest) {
-    throw new TypeError('Missing destination directory argument.')
+    throw new TypeError('Missing destination directory argument.');
   }
   const basePath = options.basePath
     ? resolve(process.cwd(), options.basePath)
-    : process.cwd()
+    : process.cwd();
 
   const basePromise = Promise.resolve().then(() => {
     return copy(
@@ -34,7 +34,7 @@ export function copyNodeModules(
         '.bin'
       )
     );
-  })
+  });
 
   return listPackagePaths(options).then((pkgAbsPaths) => {
     return pkgAbsPaths.reduce(
@@ -47,9 +47,9 @@ export function copyNodeModules(
               dest,
               pkgAbsPath.slice(pkgAbsPath.indexOf('node_modules'))
             )
-          )
+          );
         }),
       basePromise
-    )
-  })
+    );
+  });
 }

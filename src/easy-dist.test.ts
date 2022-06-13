@@ -1,43 +1,43 @@
-import { resolve } from 'path'
+import { resolve } from 'path';
 
-import { easyDist } from './easy-dist'
-import { remove } from './utils/fs'
-import { glob } from './utils/path'
+import { easyDist } from './easy-dist';
+import { remove } from './utils/fs';
+import { glob } from './utils/path';
 
 describe('testsuite of easy-dist', () => {
-  const BASE_PATH = resolve(__dirname, '..')
+  const BASE_PATH = resolve(__dirname, '..');
 
-  let beforeCwd = ''
+  let beforeCwd = '';
   beforeAll(() => {
-    beforeCwd = process.cwd()
-    process.chdir(BASE_PATH)
-  })
+    beforeCwd = process.cwd();
+    process.chdir(BASE_PATH);
+  });
 
   afterAll(() => {
     if (beforeCwd) {
-      process.chdir(beforeCwd)
+      process.chdir(beforeCwd);
     }
-  })
+  });
 
   it('test easy-dist', async () => {
-    await remove('dist')
-    const result = easyDist({ src: 'stubs/infra' })
+    await remove('dist');
+    const result = easyDist({ src: 'stubs/infra' });
 
-    const events = [] as any[]
+    const events = [] as any[];
 
-    expect(result.on('progress', (name) => events.push(name))).toBe(result)
+    expect(result.on('progress', (name) => events.push(name))).toBe(result);
     expect(result.on('copy', (from, to) => events.push([from, to]))).toBe(
       result
-    )
-    expect(result.on('done', () => events.push(true))).toBe(result)
+    );
+    expect(result.on('done', () => events.push(true))).toBe(result);
 
-    expect(result).toBeInstanceOf(Promise)
-    expect(await result).toBeUndefined()
+    expect(result).toBeInstanceOf(Promise);
+    expect(await result).toBeUndefined();
 
-    expect(await glob('dist/*')).toEqual(['dist/infra', 'dist/node_modules'])
+    expect(await glob('dist/*')).toEqual(['dist/infra', 'dist/node_modules']);
     expect(await glob('dist/infra/**/*', { nodir: true })).toEqual([
       'dist/infra/src/app.ts',
-    ])
+    ]);
     expect(events).toEqual([
       'CLEAN',
       'COPY_SOURCE_FILES',
@@ -47,28 +47,28 @@ describe('testsuite of easy-dist', () => {
       ],
       'COPY_NODE_MODULES',
       true,
-    ])
-  }, 60000)
+    ]);
+  }, 60000);
 
   it('test easy-dist without modules', async () => {
-    await remove('dist')
-    const result = easyDist({ src: 'stubs/infra', noModules: true })
+    await remove('dist');
+    const result = easyDist({ src: 'stubs/infra', noModules: true });
 
-    const events = [] as any[]
+    const events = [] as any[];
 
-    expect(result.on('progress', (name) => events.push(name))).toBe(result)
+    expect(result.on('progress', (name) => events.push(name))).toBe(result);
     expect(result.on('copy', (from, to) => events.push([from, to]))).toBe(
       result
-    )
-    expect(result.on('done', () => events.push(true))).toBe(result)
+    );
+    expect(result.on('done', () => events.push(true))).toBe(result);
 
-    expect(result).toBeInstanceOf(Promise)
-    expect(await result).toBeUndefined()
+    expect(result).toBeInstanceOf(Promise);
+    expect(await result).toBeUndefined();
 
-    expect(await glob('dist/*')).toEqual(['dist/infra'])
+    expect(await glob('dist/*')).toEqual(['dist/infra']);
     expect(await glob('dist/infra/**/*', { nodir: true })).toEqual([
       'dist/infra/src/app.ts',
-    ])
+    ]);
     expect(events).toEqual([
       'CLEAN',
       'COPY_SOURCE_FILES',
@@ -77,6 +77,6 @@ describe('testsuite of easy-dist', () => {
         `${BASE_PATH}/dist/infra/src/app.ts`,
       ],
       true,
-    ])
-  })
-})
+    ]);
+  });
+});
