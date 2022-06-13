@@ -1,9 +1,9 @@
-import { EventEmitter } from 'events'
-import { resolve } from 'path'
+import { EventEmitter } from 'events';
+import { resolve } from 'path';
 
-import { copyNodeModules } from './copy-node-modules'
-import { copySourceFiles } from './copy-source-files'
-import { remove } from './utils/fs'
+import { copyNodeModules } from './copy-node-modules';
+import { copySourceFiles } from './copy-source-files';
+import { remove } from './utils/fs';
 
 export interface EasyDistOptions {
   src: string[] | string
@@ -28,45 +28,45 @@ export interface EasyDistResult extends Promise<void> {
 }
 
 export function easyDist(options: EasyDistOptions): EasyDistResult {
-  const basePath = options.basePath ?? process.cwd()
-  const dest = resolve(basePath, options.out ?? 'dist')
+  const basePath = options.basePath ?? process.cwd();
+  const dest = resolve(basePath, options.out ?? 'dist');
 
-  const emitter = new EventEmitter()
+  const emitter = new EventEmitter();
 
   function onCopy(src: string, dest: string) {
-    emitter.emit('copy', src, dest)
+    emitter.emit('copy', src, dest);
   }
 
   const promise = Promise.resolve()
     .then(() => {
       if (options.noClean) {
-        return Promise.resolve()
+        return Promise.resolve();
       }
-      emitter.emit('progress', 'CLEAN')
-      return remove(dest)
+      emitter.emit('progress', 'CLEAN');
+      return remove(dest);
     })
     .then(() => {
       if (Array.isArray(options.src) && options.src.length === 0) {
-        return Promise.resolve()
+        return Promise.resolve();
       }
-      emitter.emit('progress', 'COPY_SOURCE_FILES')
+      emitter.emit('progress', 'COPY_SOURCE_FILES');
       return copySourceFiles(options.src, dest, {
         basePath: options.basePath,
-        onCopy,
-      })
+        onCopy
+      });
     })
     .then(() => {
       if (options.noModules) {
-        return Promise.resolve()
+        return Promise.resolve();
       }
-      emitter.emit('progress', 'COPY_NODE_MODULES')
+      emitter.emit('progress', 'COPY_NODE_MODULES');
       const modulePath =
         (options.modulePath &&
           resolve(
             basePath,
             options.modulePath.replace(/\/node_modules\/?$/, '')
           )) ||
-        basePath
+        basePath;
 
       return remove(resolve(dest, 'node_modules')).then(() =>
         copyNodeModules(dest, {
@@ -74,19 +74,20 @@ export function easyDist(options: EasyDistOptions): EasyDistResult {
           cwd: modulePath,
           devDeps: options.dev,
           bin: options.bin,
-          onCopy,
+          onCopy
         })
-      )
+      );
     })
     .then(() => {
-      emitter.emit('done')
-    })
+      emitter.emit('done');
+    });
 
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   Object.assign(promise, {
     on(event: string, listener: any) {
-      emitter.on(event, listener)
-      return promise
-    },
-  })
-  return promise as EasyDistResult
+      emitter.on(event, listener);
+      return promise;
+    }
+  });
+  return promise as EasyDistResult;
 }

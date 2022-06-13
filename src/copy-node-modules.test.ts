@@ -1,42 +1,42 @@
-import { resolve } from 'path'
+import { resolve } from 'path';
 
-import { copyNodeModules } from './copy-node-modules'
-import { remove } from './utils/fs'
-import { glob } from './utils/path'
+import { copyNodeModules } from './copy-node-modules';
+import { remove } from './utils/fs';
+import { glob } from './utils/path';
 
-const deps = ['command-line-args', 'command-line-usage', 'glob', 'ora']
+const deps = ['command-line-args', 'command-line-usage', 'glob', 'ora'];
 
 describe('testsuite of copy-node-modules', () => {
-  let beforeCwd = ''
+  let beforeCwd = '';
 
   beforeAll(() => {
-    beforeCwd = process.cwd()
-    process.chdir(resolve(__dirname, '..'))
-  })
+    beforeCwd = process.cwd();
+    process.chdir(resolve(__dirname, '..'));
+  });
 
   afterAll(() => {
     if (beforeCwd) {
-      process.chdir(beforeCwd)
+      process.chdir(beforeCwd);
     }
-  })
+  });
 
   it('test copyNodeModules', async () => {
-    await remove('dist')
-    await copyNodeModules('dist')
+    await remove('dist');
+    await copyNodeModules('dist');
 
-    const expectNodeModules = await glob('dist/node_modules/*')
+    const expectNodeModules = await glob('dist/node_modules/*');
 
     for (const dep of deps) {
-      expect(expectNodeModules).toContain(`dist/node_modules/${dep}`)
+      expect(expectNodeModules).toContain(`dist/node_modules/${dep}`);
     }
-  }, 10000)
+  }, 10000);
 
   it('test copyNodeModules, bin=true', async () => {
-    await remove('dist')
-    await copyNodeModules('dist', { bin: true })
+    await remove('dist');
+    await copyNodeModules('dist', { bin: true });
 
-    const expectNodeModules = await glob('dist/node_modules/*', { dot: true })
+    const expectNodeModules = await glob('dist/node_modules/*', { dot: true });
 
-    expect(expectNodeModules).toContain(`dist/node_modules/.bin`)
-  }, 10000)
-})
+    expect(expectNodeModules).toContain(`dist/node_modules/.bin`);
+  }, 10000);
+});

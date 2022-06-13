@@ -1,10 +1,10 @@
-import nodeGlob from 'glob'
+import nodeGlob from 'glob';
 
 export function glob(
   pattern: string | string[],
   options: nodeGlob.IOptions = {}
 ): Promise<string[]> {
-  const patterns = Array.isArray(pattern) ? pattern : [pattern]
+  const patterns = Array.isArray(pattern) ? pattern : [pattern];
   return Promise.all(
     patterns.map(
       (pattern) =>
@@ -14,5 +14,5 @@ export function glob(
           )
         )
     )
-  ).then((matches) => matches.reduce((carry, match) => carry.concat(match)))
+  ).then((matches) => matches.reduce((carry, match) => carry.concat(match)));
 }

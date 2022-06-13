@@ -6,63 +6,63 @@ import {
   rmdir,
   Stats,
   unlink,
-  writeFile,
-} from 'fs'
-import { dirname, join } from 'path'
+  writeFile
+} from 'fs';
+import { dirname, join } from 'path';
 
 function lstatPromise(path: string): Promise<Stats> {
   return new Promise((resolve, reject) => {
     lstat(path, (err, stat) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
-      return resolve(stat)
-    })
-  })
+      return resolve(stat);
+    });
+  });
 }
 
 function mkdirRecursivePromise(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
     mkdir(path, { recursive: true }, (err) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
-      return resolve()
-    })
-  })
+      return resolve();
+    });
+  });
 }
 
 function readdirPromise(path: string): Promise<string[]> {
   return new Promise((resolve, reject) => {
     readdir(path, (err, files) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
-      return resolve(files)
-    })
-  })
+      return resolve(files);
+    });
+  });
 }
 
 function readFilePromise(path: string): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     readFile(path, (err, data) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
-      return resolve(data)
-    })
-  })
+      return resolve(data);
+    });
+  });
 }
 
 function writeFilePromise(path: string, data: any): Promise<void> {
   return new Promise((resolve, reject) => {
     writeFile(path, data, (err) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
-      return resolve()
-    })
-  })
+      return resolve();
+    });
+  });
 }
 
 function rmdirPromise(path: string): Promise<void> {
@@ -70,24 +70,24 @@ function rmdirPromise(path: string): Promise<void> {
     rmdir(path, (err) => {
       if (err) {
         if (err.code === 'ENOTEMPTY') {
-          return resolve()
+          return resolve();
         }
-        return reject(err)
+        return reject(err);
       }
-      return resolve()
-    })
-  })
+      return resolve();
+    });
+  });
 }
 
 function unlinkPromise(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
     unlink(path, (err) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
-      return resolve()
-    })
-  })
+      return resolve();
+    });
+  });
 }
 
 export function remove(path: string): Promise<void> {
@@ -97,19 +97,19 @@ export function remove(path: string): Promise<void> {
         return readdirPromise(path)
           .then((files) =>
             files.reduce((carry, file) => {
-              return carry.then(() => remove(join(path, file)))
+              return carry.then(() => remove(join(path, file)));
             }, Promise.resolve())
           )
-          .then(() => rmdirPromise(path))
+          .then(() => rmdirPromise(path));
       }
-      return unlinkPromise(path)
+      return unlinkPromise(path);
     })
     .catch((e) => {
       if (e.code === 'ENOENT') {
-        return
+        return;
       }
-      return console.error(e)
-    })
+      return console.error(e);
+    });
 }
 
 export interface CopyOptions {
@@ -128,31 +128,31 @@ export function copy(
         files.reduce((carry, file) => {
           return carry.then(() =>
             copy(join(src, file), join(dest, file), options)
-          )
+          );
         }, Promise.resolve())
-      )
+      );
     }
 
-    const destDir = dirname(dest)
+    const destDir = dirname(dest);
 
     return lstatPromise(dest)
       .then(() => remove(dest))
       .catch((e) => {
         if (e.code === 'ENOENT') {
-          return
+          return;
         }
-        return console.error(e)
+        return console.error(e);
       })
       .then(() => lstatPromise(destDir))
       .catch((e) => {
         if (e.code === 'ENOENT') {
-          return mkdirRecursivePromise(destDir)
+          return mkdirRecursivePromise(destDir);
         }
-        return console.error(e)
+        return console.error(e);
       })
       .then(() => readFilePromise(src))
       .then((body) =>
         writeFilePromise(dest, body).then(() => options.onCopy?.(src, dest))
-      )
-  })
+      );
+  });
 }
