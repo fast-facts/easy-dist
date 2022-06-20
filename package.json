@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/RabbitPlayground/easy-dist.git"
+    "url": "git://github.com/fast-facts/easy-dist.git"
   },
   "bin": {
     "easy-dist": "bin/cli.js"
