@@ -24,8 +24,8 @@ export function copySourceFiles(
     : process.cwd();
 
   return glob(src)
-    .then((files) => [...new Set(files.map((file) => resolve(basePath, file)))])
-    .then((files) =>
+    .then(files => [...new Set(files.map(file => resolve(basePath, file)))])
+    .then(files =>
       files.reduce(
         (carry, file) =>
           carry.then(() => {

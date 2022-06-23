@@ -25,7 +25,7 @@ describe('testsuite of easy-dist', () => {
 
     const events = [] as any[];
 
-    expect(result.on('progress', (name) => events.push(name))).toBe(result);
+    expect(result.on('progress', name => events.push(name))).toBe(result);
     expect(result.on('copy', (from, to) => events.push([from, to]))).toBe(
       result
     );
@@ -56,7 +56,7 @@ describe('testsuite of easy-dist', () => {
 
     const events = [] as any[];
 
-    expect(result.on('progress', (name) => events.push(name))).toBe(result);
+    expect(result.on('progress', name => events.push(name))).toBe(result);
     expect(result.on('copy', (from, to) => events.push([from, to]))).toBe(
       result
     );

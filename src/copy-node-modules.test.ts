@@ -37,6 +37,6 @@ describe('testsuite of copy-node-modules', () => {
 
     const expectNodeModules = await glob('dist/node_modules/*', { dot: true });
 
-    expect(expectNodeModules).toContain(`dist/node_modules/.bin`);
+    expect(expectNodeModules).toContain('dist/node_modules/.bin');
   }, 10000);
 });

@@ -23,7 +23,7 @@ function lstatPromise(path: string): Promise<Stats> {
 
 function mkdirRecursivePromise(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    mkdir(path, { recursive: true }, (err) => {
+    mkdir(path, { recursive: true }, err => {
       if (err) {
         return reject(err);
       }
@@ -56,7 +56,7 @@ function readFilePromise(path: string): Promise<Buffer> {
 
 function writeFilePromise(path: string, data: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    writeFile(path, data, (err) => {
+    writeFile(path, data, err => {
       if (err) {
         return reject(err);
       }
@@ -67,7 +67,7 @@ function writeFilePromise(path: string, data: any): Promise<void> {
 
 function rmdirPromise(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    rmdir(path, (err) => {
+    rmdir(path, err => {
       if (err) {
         if (err.code === 'ENOTEMPTY') {
           return resolve();
@@ -81,7 +81,7 @@ function rmdirPromise(path: string): Promise<void> {
 
 function unlinkPromise(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    unlink(path, (err) => {
+    unlink(path, err => {
       if (err) {
         return reject(err);
       }
@@ -92,10 +92,10 @@ function unlinkPromise(path: string): Promise<void> {
 
 export function remove(path: string): Promise<void> {
   return lstatPromise(path)
-    .then((status) => {
+    .then(status => {
       if (status.isDirectory()) {
         return readdirPromise(path)
-          .then((files) =>
+          .then(files =>
             files.reduce((carry, file) => {
               return carry.then(() => remove(join(path, file)));
             }, Promise.resolve())
@@ -104,7 +104,7 @@ export function remove(path: string): Promise<void> {
       }
       return unlinkPromise(path);
     })
-    .catch((e) => {
+    .catch(e => {
       if (e.code === 'ENOENT') {
         return;
       }
@@ -121,10 +121,10 @@ export function copy(
   dest: string,
   options: CopyOptions = {}
 ): Promise<void> {
-  return lstatPromise(src).then((srcStat) => {
+  return lstatPromise(src).then(srcStat => {
     // src is directory
     if (srcStat.isDirectory()) {
-      return readdirPromise(src).then((files) =>
+      return readdirPromise(src).then(files =>
         files.reduce((carry, file) => {
           return carry.then(() =>
             copy(join(src, file), join(dest, file), options)
@@ -137,21 +137,21 @@ export function copy(
 
     return lstatPromise(dest)
       .then(() => remove(dest))
-      .catch((e) => {
+      .catch(e => {
         if (e.code === 'ENOENT') {
           return;
         }
         return console.error(e);
       })
       .then(() => lstatPromise(destDir))
-      .catch((e) => {
+      .catch(e => {
         if (e.code === 'ENOENT') {
           return mkdirRecursivePromise(destDir);
         }
         return console.error(e);
       })
       .then(() => readFilePromise(src))
-      .then((body) =>
+      .then(body =>
         writeFilePromise(dest, body).then(() => options.onCopy?.(src, dest))
       );
   });

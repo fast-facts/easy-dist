@@ -141,7 +141,7 @@ const app = easyDist({
 });
 
 let spinner = null as Ora | null;
-void app.on('progress', (name) => {
+void app.on('progress', name => {
   switch (name) {
     case 'CLEAN': {
       spinner?.succeed();

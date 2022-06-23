@@ -7,12 +7,12 @@ export function glob(
   const patterns = Array.isArray(pattern) ? pattern : [pattern];
   return Promise.all(
     patterns.map(
-      (pattern) =>
+      pattern =>
         new Promise<string[]>((resolve, reject) =>
           nodeGlob(pattern, options, (err, matches) =>
             err ? reject(err) : resolve(matches)
           )
         )
     )
-  ).then((matches) => matches.reduce((carry, match) => carry.concat(match)));
+  ).then(matches => matches.reduce((carry, match) => carry.concat(match)));
 }

@@ -36,7 +36,7 @@ export function copyNodeModules(
     );
   });
 
-  return listPackagePaths(options).then((pkgAbsPaths) => {
+  return listPackagePaths(options).then(pkgAbsPaths => {
     return pkgAbsPaths.reduce(
       (carry, pkgAbsPath) =>
         carry.then(() => {
