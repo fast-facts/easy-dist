@@ -12,6 +12,7 @@ updates:
       - dependencies
     ignore:
       - dependency-name: 'ora'
+      - dependency-name: '@swc/cli'
     commit-message:
       prefix: fix
       prefix-development: chore
