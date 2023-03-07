@@ -12,7 +12,11 @@ updates:
       - dependencies
     ignore:
       - dependency-name: 'ora'
+        versions: ['>=6.0.0']
       - dependency-name: '@swc/cli'
+        versions: ['>=9.0.0']
+      - dependency-name: 'glob'
+        versions: ['>=9.0.0']
     commit-message:
       prefix: fix
       prefix-development: chore
