@@ -19,3 +19,19 @@ updates:
       prefix: fix
       prefix-development: chore
       include: scope
+    groups:
+      typescript and eslint:
+        patterns:
+          - '*typescript*'
+          - '*eslint*'
+      jest:
+        patterns:
+          - '*jest*'
+      swc:
+        patterns:
+          - '*swc*'
+      types:
+        patterns:
+          - '@types/*'
+        exclude-patterns:
+          - '*jest*'
