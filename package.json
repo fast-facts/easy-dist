@@ -29,7 +29,7 @@
     "test:unit": "jest src --runInBand"
   },
   "dependencies": {
-    "command-line-args": "^5.1.1",
+    "command-line-args": "^6.0.0",
     "command-line-usage": "^7.0.1",
     "glob": "^8.1.0",
     "ora": "^5.4.1"
