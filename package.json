@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "command-line-args": "^6.0.0",
-    "command-line-usage": "^7.0.2",
+    "command-line-usage": "^7.0.3",
     "glob": "^8.1.0",
     "ora": "^5.4.1"
   },
