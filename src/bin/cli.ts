@@ -92,6 +92,7 @@ const cmdOptions = [
 const args = commandLineArgs(cmdOptions)._all;
 
 if (args.version) {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   console.log(`v${require('../../package.json').version}`); // eslint-disable-line @typescript-eslint/no-var-requires
   process.exit(0);
 }
