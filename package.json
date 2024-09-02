@@ -22,7 +22,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc --project tsconfig.build.json && swc src --no-swcrc --config-file .swcrc.build.json --out-dir lib",
+    "build": "rm -rf ./lib && tsc --project tsconfig.build.json && swc src --no-swcrc --config-file .swcrc.build.json --out-dir lib",
     "postbuild": "cp package.json lib && cp README.md lib",
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint --ext .js,.ts --ignore-path .gitignore --fix src",
@@ -50,7 +50,6 @@
     "eslint-config-stable": "0.10.0",
     "jest": "^29.7.0",
     "prettier": "3.3.3",
-    "rimraf": "6.0.1",
     "typescript": "^5.5.4"
   }
 }
