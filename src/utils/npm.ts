@@ -3,10 +3,10 @@ import { exec } from 'child_process';
 const RE_NODE_MODULES = /[/\\]node_modules[/\\]/g;
 
 export interface ListPackagesOptions {
-  cwd?: string
-  devDeps?: boolean
-  bin?: boolean
-  noDeps?: boolean
+  cwd?: string;
+  devDeps?: boolean;
+  bin?: boolean;
+  noDeps?: boolean;
 }
 
 export function listPackagePaths(

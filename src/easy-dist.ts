@@ -6,14 +6,14 @@ import { copySourceFiles } from './copy-source-files';
 import { remove } from './utils/fs';
 
 export interface EasyDistOptions {
-  src: string[] | string
-  basePath?: string
-  out?: string
-  modulePath?: string
-  noClean?: boolean
-  noModules?: boolean
-  dev?: false
-  bin?: false
+  src: string[] | string;
+  basePath?: string;
+  out?: string;
+  modulePath?: string;
+  noClean?: boolean;
+  noModules?: boolean;
+  dev?: false;
+  bin?: false;
 }
 
 export interface EasyDistResult extends Promise<void> {
@@ -22,9 +22,9 @@ export interface EasyDistResult extends Promise<void> {
     listener: (
       name: 'CLEAN' | 'COPY_SOURCE_FILES' | 'COPY_NODE_MODULES'
     ) => void
-  ): this
-  on(event: 'copy', listener: (src: string, dest: string) => void): this
-  on(event: 'done', listener: () => void): this
+  ): this;
+  on(event: 'copy', listener: (src: string, dest: string) => void): this;
+  on(event: 'done', listener: () => void): this;
 }
 
 export function easyDist(options: EasyDistOptions): EasyDistResult {
@@ -52,7 +52,7 @@ export function easyDist(options: EasyDistOptions): EasyDistResult {
       emitter.emit('progress', 'COPY_SOURCE_FILES');
       return copySourceFiles(options.src, dest, {
         basePath: options.basePath,
-        onCopy
+        onCopy,
       });
     })
     .then(() => {
@@ -66,7 +66,7 @@ export function easyDist(options: EasyDistOptions): EasyDistResult {
             basePath,
             options.modulePath.replace(/\/node_modules\/?$/, '')
           )) ||
-        basePath;
+          basePath;
 
       return remove(resolve(dest, 'node_modules')).then(() =>
         copyNodeModules(dest, {
@@ -74,7 +74,7 @@ export function easyDist(options: EasyDistOptions): EasyDistResult {
           cwd: modulePath,
           devDeps: options.dev,
           bin: options.bin,
-          onCopy
+          onCopy,
         })
       );
     })
@@ -87,7 +87,7 @@ export function easyDist(options: EasyDistOptions): EasyDistResult {
     on(event: string, listener: any) {
       emitter.on(event, listener);
       return promise;
-    }
+    },
   });
   return promise as EasyDistResult;
 }

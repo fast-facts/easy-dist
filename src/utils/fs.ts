@@ -104,7 +104,7 @@ export function remove(path: string): Promise<void> {
       }
       return unlinkPromise(path);
     })
-    .catch(e => {
+    .catch((e: any) => {
       if (e.code === 'ENOENT') {
         return;
       }
@@ -113,7 +113,7 @@ export function remove(path: string): Promise<void> {
 }
 
 export interface CopyOptions {
-  onCopy?: (src: string, dest: string) => any
+  onCopy?: (src: string, dest: string) => any;
 }
 
 export function copy(
@@ -137,14 +137,14 @@ export function copy(
 
     return lstatPromise(dest)
       .then(() => remove(dest))
-      .catch(e => {
+      .catch((e: any) => {
         if (e.code === 'ENOENT') {
           return;
         }
         return console.error(e);
       })
       .then(() => lstatPromise(destDir))
-      .catch(e => {
+      .catch((e: any) => {
         if (e.code === 'ENOENT') {
           return mkdirRecursivePromise(destDir);
         }

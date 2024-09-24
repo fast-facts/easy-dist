@@ -4,7 +4,7 @@ import { copy, CopyOptions } from './utils/fs';
 import { glob } from './utils/path';
 
 export interface CopySourceFilesInterface extends CopyOptions {
-  basePath?: string
+  basePath?: string;
 }
 
 export function copySourceFiles(
@@ -30,7 +30,7 @@ export function copySourceFiles(
         (carry, file) =>
           carry.then(() => {
             return copy(file, resolve(basePath, dest, basename(file)), {
-              onCopy: options.onCopy
+              onCopy: options.onCopy,
             });
           }),
         Promise.resolve()

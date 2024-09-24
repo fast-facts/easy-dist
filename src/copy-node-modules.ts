@@ -6,7 +6,7 @@ import { listPackagePaths, ListPackagesOptions } from './utils/npm';
 export interface CopyNodeModulesOptions
   extends CopyOptions,
   ListPackagesOptions {
-  basePath?: string
+  basePath?: string;
 }
 
 export function copyNodeModules(

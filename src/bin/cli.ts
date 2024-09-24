@@ -13,7 +13,7 @@ const cmdOptions = [
     type: String,
     multiple: true,
     defaultOption: true,
-    defaultValue: []
+    defaultValue: [],
   },
 
   {
@@ -21,21 +21,21 @@ const cmdOptions = [
     name: 'help',
     alias: 'h',
     type: Boolean,
-    description: 'Display this usage info.'
+    description: 'Display this usage info.',
   },
   {
     group: 'build',
     name: 'version',
     alias: 'V',
     type: Boolean,
-    description: 'Output the version number.'
+    description: 'Output the version number.',
   },
   {
     group: 'build',
     name: 'verbose',
     alias: 'v',
     type: Boolean,
-    description: 'Increase the verbosity of messages.'
+    description: 'Increase the verbosity of messages.',
   },
 
   {
@@ -45,47 +45,47 @@ const cmdOptions = [
     type: String,
     description:
       'Copy all input files into an output directory.\n[default: {bold dist}]',
-    defaultValue: 'dist'
+    defaultValue: 'dist',
   },
   {
     group: 'build',
     name: 'no-clean',
     type: Boolean,
-    description: 'Without cleaning the output directory.'
+    description: 'Without cleaning the output directory.',
   },
 
   {
     group: 'modules',
     name: 'no-files',
     type: Boolean,
-    description: 'Run without copying files.'
+    description: 'Run without copying files.',
   },
   {
     group: 'modules',
     name: 'no-modules',
     type: Boolean,
-    description: 'Run without copying node_modules.'
+    description: 'Run without copying node_modules.',
   },
   {
     group: 'modules',
     name: 'module-path',
     alias: 'M',
     type: String,
-    description: 'Change node_modules path.'
+    description: 'Change node_modules path.',
   },
   {
     group: 'modules',
     name: 'dev',
     alias: 'D',
     type: Boolean,
-    description: 'Copy modules in devDependencies also.'
+    description: 'Copy modules in devDependencies also.',
   },
   {
     group: 'modules',
     name: 'bin',
     alias: 'B',
     type: Boolean,
-    description: 'Copy .bin also.'
+    description: 'Copy .bin also.',
   },
 ];
 
@@ -103,25 +103,25 @@ if (args.help) {
     commandLineUsage([
       { content: '{yellow Usage:}', raw: true },
       {
-        content: ['$ easy-dist <path ...> [options]']
+        content: ['$ easy-dist <path ...> [options]'],
       },
       { content: '{yellow Synopsis:}', raw: true },
       {
         content: [
           '$ easy-dist [{bold --timeout} {underline ms}] {bold --src} {underline file} ...',
           '$ easy-dist {bold --help}',
-        ]
+        ],
       },
       { content: '{yellow Options:}', raw: true },
       {
         hide: ['src'],
         optionList: cmdOptions,
-        group: 'build'
+        group: 'build',
       },
       { content: '{yellow Module Options:}', raw: true },
       {
         optionList: cmdOptions,
-        group: 'modules'
+        group: 'modules',
       },
     ]).replace(/^\s+/, '')
   );
@@ -138,7 +138,7 @@ const app = easyDist({
   modulePath: args['module-path'],
   noModules: args['no-modules'],
   dev: args.dev,
-  bin: args.bin
+  bin: args.bin,
 });
 
 let spinner = null as Ora | null;
