@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@swc/cli": "^0.7.3",
-    "@swc/core": "1.11.21",
+    "@swc/core": "1.11.22",
     "@swc/jest": "^0.2.38",
     "@types/command-line-args": "5.2.3",
     "@types/command-line-usage": "5.0.4",
