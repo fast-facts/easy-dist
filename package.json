@@ -45,7 +45,7 @@
     "@types/node": "24.0.3",
     "eslint-config-final": "^1.6.2",
     "jest": "^30.0.2",
-    "prettier": "3.5.3",
+    "prettier": "3.6.0",
     "typescript": "^5.5.4"
   }
 }
