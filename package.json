@@ -43,7 +43,7 @@
     "@types/glob": "8.1.0",
     "@types/jest": "30.0.0",
     "@types/node": "24.0.13",
-    "eslint-config-final": "^1.6.5",
+    "eslint-config-final": "^1.6.6",
     "jest": "^30.0.4",
     "prettier": "3.6.2",
     "typescript": "^5.5.4"
