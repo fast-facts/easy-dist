@@ -42,7 +42,7 @@
     "@types/command-line-usage": "5.0.4",
     "@types/glob": "8.1.0",
     "@types/jest": "30.0.0",
-    "@types/node": "24.8.1",
+    "@types/node": "24.9.1",
     "eslint-config-final": "^1.6.18",
     "jest": "^30.2.0",
     "prettier": "3.6.2",
