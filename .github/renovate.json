@@ -1,0 +1,94 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:base"
+    ],
+    "minimumReleaseAge": "14 days",
+    "schedule": [
+        "before 4am"
+    ],
+    "timezone": "America/New_York",
+    "prCreation": "immediate",
+    "labels": [
+        "dependencies"
+    ],
+    "rangeStrategy": "bump",
+    "automerge": true,
+    "automergeType": "pr",
+    "packageRules": [
+        {
+            "matchManagers": [
+                "github-actions"
+            ],
+            "matchDepTypes": [
+                "uses-with"
+            ],
+            "matchDepNames": [
+                "node"
+            ],
+            "matchUpdateTypes": [
+                "minor",
+                "patch"
+            ],
+            "enabled": false
+        },
+        {
+            "matchDepTypes": [
+                "engines"
+            ],
+            "matchPackageNames": [
+                "node"
+            ],
+            "enabled": false
+        },
+        {
+            "matchPackageNames": [
+                "ora"
+            ],
+            "matchCurrentVersion": ">=6.0.0",
+            "enabled": false
+        },
+        {
+            "matchPackageNames": [
+                "glob"
+            ],
+            "matchCurrentVersion": ">=9.0.0",
+            "enabled": false
+        },
+        {
+            "matchPackageNames": [
+                "typescript"
+            ],
+            "matchCurrentVersion": ">=5.6.0",
+            "enabled": false
+        },
+        {
+            "groupName": "typescript and eslint",
+            "matchPackagePatterns": [
+                "*typescript*",
+                "*eslint*"
+            ]
+        },
+        {
+            "groupName": "jest",
+            "matchPackagePatterns": [
+                "*jest*"
+            ]
+        },
+        {
+            "groupName": "swc",
+            "matchPackagePatterns": [
+                "*swc*"
+            ]
+        },
+        {
+            "groupName": "types",
+            "matchPackagePatterns": [
+                "@types/*"
+            ],
+            "excludePackagePatterns": [
+                "*jest*"
+            ]
+        }
+    ]
+}
