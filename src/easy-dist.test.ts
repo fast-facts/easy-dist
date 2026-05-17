@@ -34,7 +34,7 @@ describe('testsuite of easy-dist', () => {
     expect(result).toBeInstanceOf(Promise);
     expect(await result).toBeUndefined();
 
-    expect(await glob('dist/*')).toEqual(['dist/infra', 'dist/node_modules']);
+    expect(await glob('dist/*')).toEqual(expect.arrayContaining(['dist/infra', 'dist/node_modules']));
     expect(await glob('dist/infra/**/*', { nodir: true })).toEqual([
       'dist/infra/src/app.ts',
     ]);

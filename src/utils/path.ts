@@ -1,18 +1,13 @@
-import nodeGlob from 'glob';
+import * as nodeGlob from 'glob';
 
 export function glob(
   pattern: string | string[],
-  options: nodeGlob.IOptions = {}
+  options: nodeGlob.GlobOptions = {}
 ): Promise<string[]> {
   const patterns = Array.isArray(pattern) ? pattern : [pattern];
   return Promise.all(
     patterns.map(
-      pattern =>
-        new Promise<string[]>((resolve, reject) =>
-          nodeGlob(pattern, options, (err, matches) =>
-            err ? reject(err) : resolve(matches)
-          )
-        )
+      pattern => nodeGlob.glob(pattern, options) as Promise<string[]>
     )
   ).then(matches => matches.reduce((carry, match) => carry.concat(match)));
 }
