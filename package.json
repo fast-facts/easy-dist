@@ -40,7 +40,7 @@
     "@swc/jest": "^0.2.39",
     "@types/command-line-args": "5.2.3",
     "@types/command-line-usage": "5.0.4",
-    "@types/glob": "8.1.0",
+    "@types/glob": "9.0.0",
     "@types/jest": "30.0.0",
     "@types/node": "25.6.2",
     "eslint-config-final": "^1.7.4",
